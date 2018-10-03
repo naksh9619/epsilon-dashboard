@@ -1,0 +1,14 @@
+# Lines that start with '#' are comments.
+*~
+*.diff
+*#
+*.DS*
+.classpath
+.project
+.settings
+.eclipse
+*/bin
+target
+.idea
+*.iml
+.idea/*
