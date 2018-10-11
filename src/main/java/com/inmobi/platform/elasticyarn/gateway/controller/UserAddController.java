@@ -2,6 +2,8 @@ package com.inmobi.platform.elasticyarn.gateway.controller;
 
 
 
+import com.inmobi.platform.elasticyarn.gateway.entity.User;
+import com.inmobi.platform.elasticyarn.gateway.entity.UserRepository;
 import com.inmobi.platform.elasticyarn.gateway.service.FileStorageService;
 import com.inmobi.platform.elasticyarn.gateway.util.SystemCommandExecutor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +26,19 @@ public class UserAddController {
 
     @Autowired
     private FileStorageService fileStorageService;
+    @Autowired
+    private UserRepository userRepository;
+
 
     @PostMapping("/adduser")
     public String addUser(@RequestPart("user") String user,@RequestPart("group") String group, @RequestParam("key") MultipartFile key, Model model) {
 
+
+
         String error ="";
         String fileName = fileStorageService.storeFile(key);
+
+        addUserToTheDataBase(user,group,fileName);
 
         if (user.length()==0) {
             error = "Fields missing";
@@ -38,6 +49,24 @@ public class UserAddController {
 
         model.addAttribute("error",error);
         return "adduser";
+    }
+
+    private void addUserToTheDataBase(String user, String group, String fileName) {
+
+        String key = "";
+
+        try {
+            key = new String(Files.readAllBytes(Paths.get("/dashboard/uploads/" + fileName)));
+        } catch (IOException e) {
+            log.error("Could not read key file");
+        }
+
+        User userToAdd = new User();
+        userToAdd.setUserName(user);
+        userToAdd.setUserGroup(group);
+        userToAdd.setSshKey(key);
+
+        userRepository.save(userToAdd);
     }
 
     private String addUserAndKey(String user,String group,String filename) {
