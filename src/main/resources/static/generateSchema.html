@@ -1,0 +1,573 @@
+<html>
+<head>
+    <title> Generate Schema File </title>
+</head>
+<body>
+<div style="padding:15px">
+    <form action="javascript:void(0);" onsubmit="download(htmlToXML(this));">
+        <section>
+            <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="schemas">
+                <legend>schemas</legend>
+                <section>
+                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="schema">
+                        <legend>schema<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                        <section>
+                            <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="dimensions" style="display: none;">
+                                <legend>dimensions<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                <section>
+                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="dimension">
+                                        <legend>dimension<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                        <section>
+                                            <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="rollups" style="display: none;">
+                                                <legend>rollups<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                                <section>
+                                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="rollup">
+                                                        <legend>rollup<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string" value="DAILY"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="expr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>expr</span></label>
+                                                    </fieldset>
+                                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="rollup" style="display: none;">
+                                                        <legend>rollup<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string" value="DAILY"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="expr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>expr</span></label>
+                                                    </fieldset>
+                                                    <button type="button" class="add" data-xsd2html2xml-min="1" data-xsd2html2xml-max="unbounded" onclick="clickAddButton(this);">+ rollup</button>
+                                                </section>
+                                            </fieldset>
+                                            <button type="button" class="add" data-xsd2html2xml-min="0" data-xsd2html2xml-max="1" onclick="clickAddButton(this);">+ rollups</button>
+                                        </section>
+                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="type"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="[\s\S]*[^ ][\s\S]*" disabled="" data-xsd2html2xml-primitive="xs:string" value="string"><span>type</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="description"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>description</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="defaultExpr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>defaultExpr</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="defaultValue"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string" value="-999"><span>defaultValue</span></label>
+                                    </fieldset>
+                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="dimension" style="display: none;">
+                                        <legend>dimension<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                        <section>
+                                            <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="rollups" style="display: none;">
+                                                <legend>rollups<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                                <section>
+                                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="rollup">
+                                                        <legend>rollup<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string" value="DAILY"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="expr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>expr</span></label>
+                                                    </fieldset>
+                                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="rollup" style="display: none;">
+                                                        <legend>rollup<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string" value="DAILY"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="expr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>expr</span></label>
+                                                    </fieldset>
+                                                    <button type="button" class="add" data-xsd2html2xml-min="1" data-xsd2html2xml-max="unbounded" onclick="clickAddButton(this);">+ rollup</button>
+                                                </section>
+                                            </fieldset>
+                                            <button type="button" class="add" data-xsd2html2xml-min="0" data-xsd2html2xml-max="1" onclick="clickAddButton(this);">+ rollups</button>
+                                        </section>
+                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="type"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="[\s\S]*[^ ][\s\S]*" disabled="" data-xsd2html2xml-primitive="xs:string" value="string"><span>type</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="description"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>description</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="defaultExpr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>defaultExpr</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="defaultValue"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string" value="-999"><span>defaultValue</span></label>
+                                    </fieldset>
+                                    <button type="button" class="add" data-xsd2html2xml-min="1" data-xsd2html2xml-max="unbounded" onclick="clickAddButton(this);">+ dimension</button>
+                                </section>
+                            </fieldset>
+                            <button type="button" class="add" data-xsd2html2xml-min="0" data-xsd2html2xml-max="1" onclick="clickAddButton(this);">+ dimensions</button>
+                        </section>
+                        <section>
+                            <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="measures" style="display: none;">
+                                <legend>measures<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                <section>
+                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="measure">
+                                        <legend>measure<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="aggr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="[\s\S]*[^ ][\s\S]*" disabled="" data-xsd2html2xml-primitive="xs:string" value="sum"><span>aggr</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="description"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>description</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="type"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="[\s\S]*[^ ][\s\S]*" disabled="" data-xsd2html2xml-primitive="xs:string" value="DOUBLE"><span>type</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="defaultValue"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string" value="0"><span>defaultValue</span></label>
+                                    </fieldset>
+                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="measure" style="display: none;">
+                                        <legend>measure<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="aggr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="[\s\S]*[^ ][\s\S]*" disabled="" data-xsd2html2xml-primitive="xs:string" value="sum"><span>aggr</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="description"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>description</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="type"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="[\s\S]*[^ ][\s\S]*" disabled="" data-xsd2html2xml-primitive="xs:string" value="DOUBLE"><span>type</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="defaultValue"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string" value="0"><span>defaultValue</span></label>
+                                    </fieldset>
+                                    <button type="button" class="add" data-xsd2html2xml-min="1" data-xsd2html2xml-max="unbounded" onclick="clickAddButton(this);">+ measure</button>
+                                </section>
+                            </fieldset>
+                            <button type="button" class="add" data-xsd2html2xml-min="0" data-xsd2html2xml-max="1" onclick="clickAddButton(this);">+ measures</button>
+                        </section>
+                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" data-xsd2html2xml-primitive="xs:string"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="extends"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" data-xsd2html2xml-primitive="xs:string"><span>extends</span></label>
+                    </fieldset>
+                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="schema" style="display: none;">
+                        <legend>schema<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                        <section>
+                            <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="dimensions" style="display: none;">
+                                <legend>dimensions<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                <section>
+                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="dimension">
+                                        <legend>dimension<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                        <section>
+                                            <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="rollups" style="display: none;">
+                                                <legend>rollups<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                                <section>
+                                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="rollup">
+                                                        <legend>rollup<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string" value="DAILY"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="expr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>expr</span></label>
+                                                    </fieldset>
+                                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="rollup" style="display: none;">
+                                                        <legend>rollup<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string" value="DAILY"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="expr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>expr</span></label>
+                                                    </fieldset>
+                                                    <button type="button" class="add" data-xsd2html2xml-min="1" data-xsd2html2xml-max="unbounded" onclick="clickAddButton(this);">+ rollup</button>
+                                                </section>
+                                            </fieldset>
+                                            <button type="button" class="add" data-xsd2html2xml-min="0" data-xsd2html2xml-max="1" onclick="clickAddButton(this);">+ rollups</button>
+                                        </section>
+                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="type"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="[\s\S]*[^ ][\s\S]*" disabled="" data-xsd2html2xml-primitive="xs:string" value="string"><span>type</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="description"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>description</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="defaultExpr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>defaultExpr</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="defaultValue"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string" value="-999"><span>defaultValue</span></label>
+                                    </fieldset>
+                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="dimension" style="display: none;">
+                                        <legend>dimension<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                        <section>
+                                            <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="rollups" style="display: none;">
+                                                <legend>rollups<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                                <section>
+                                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="rollup">
+                                                        <legend>rollup<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string" value="DAILY"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="expr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>expr</span></label>
+                                                    </fieldset>
+                                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="rollup" style="display: none;">
+                                                        <legend>rollup<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string" value="DAILY"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="expr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>expr</span></label>
+                                                    </fieldset>
+                                                    <button type="button" class="add" data-xsd2html2xml-min="1" data-xsd2html2xml-max="unbounded" onclick="clickAddButton(this);">+ rollup</button>
+                                                </section>
+                                            </fieldset>
+                                            <button type="button" class="add" data-xsd2html2xml-min="0" data-xsd2html2xml-max="1" onclick="clickAddButton(this);">+ rollups</button>
+                                        </section>
+                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="type"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="[\s\S]*[^ ][\s\S]*" disabled="" data-xsd2html2xml-primitive="xs:string" value="string"><span>type</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="description"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>description</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="defaultExpr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>defaultExpr</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="defaultValue"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string" value="-999"><span>defaultValue</span></label>
+                                    </fieldset>
+                                    <button type="button" class="add" data-xsd2html2xml-min="1" data-xsd2html2xml-max="unbounded" onclick="clickAddButton(this);">+ dimension</button>
+                                </section>
+                            </fieldset>
+                            <button type="button" class="add" data-xsd2html2xml-min="0" data-xsd2html2xml-max="1" onclick="clickAddButton(this);">+ dimensions</button>
+                        </section>
+                        <section>
+                            <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="measures" style="display: none;">
+                                <legend>measures<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                <section>
+                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="measure">
+                                        <legend>measure<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="aggr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="[\s\S]*[^ ][\s\S]*" disabled="" data-xsd2html2xml-primitive="xs:string" value="sum"><span>aggr</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="description"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>description</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="type"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="[\s\S]*[^ ][\s\S]*" disabled="" data-xsd2html2xml-primitive="xs:string" value="DOUBLE"><span>type</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="defaultValue"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string" value="0"><span>defaultValue</span></label>
+                                    </fieldset>
+                                    <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="measure" style="display: none;">
+                                        <legend>measure<button type="button" class="remove" onclick="clickRemoveButton(this);">-</button></legend>
+                                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="aggr"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="[\s\S]*[^ ][\s\S]*" disabled="" data-xsd2html2xml-primitive="xs:string" value="sum"><span>aggr</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="description"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string"><span>description</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="type"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="[\s\S]*[^ ][\s\S]*" disabled="" data-xsd2html2xml-primitive="xs:string" value="DOUBLE"><span>type</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="defaultValue"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern=".{0,}" disabled="" data-xsd2html2xml-primitive="xs:string" value="0"><span>defaultValue</span></label>
+                                    </fieldset>
+                                    <button type="button" class="add" data-xsd2html2xml-min="1" data-xsd2html2xml-max="unbounded" onclick="clickAddButton(this);">+ measure</button>
+                                </section>
+                            </fieldset>
+                            <button type="button" class="add" data-xsd2html2xml-min="0" data-xsd2html2xml-max="1" onclick="clickAddButton(this);">+ measures</button>
+                        </section>
+                        <label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="name"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" required="required" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string"><span>name</span></label><label data-xsd2html2xml-type="attribute" data-xsd2html2xml-name="extends"><input type="text" onchange="if (this.value) { this.setAttribute(&quot;value&quot;, this.value); } else { this.removeAttribute(&quot;value&quot;); };" pattern="(([a-zA-Z]([_a-zA-Z0-9])*){1,39})" disabled="" data-xsd2html2xml-primitive="xs:string"><span>extends</span></label>
+                    </fieldset>
+                    <button type="button" class="add" data-xsd2html2xml-min="1" data-xsd2html2xml-max="unbounded" onclick="clickAddButton(this);">+ schema</button>
+                </section>
+            </fieldset>
+        </section>
+        <input type="submit" value="Generate Schema File">
+        <style type="text/css">
+        body {
+        font-family: Calibri, Arial, sans-serif;
+        font-size: 11pt;
+        margin: auto;
+        <!--padding-top: 25px;-->
+        padding-bottom: 25px;
+        <!--width: 80%;-->
+        min-width: 200px;
+        }
+        input[type='submit'] {
+        margin-bottom: 20px;
+        }
+        button, input, select, textarea {
+        box-sizing: border-box;
+        font-family: Calibri, Arial, sans-serif;
+        font-size: 10pt;
+        }
+        fieldset {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 1px solid black;
+        border-radius: 5px;
+        }
+        button.add {
+        width: 50%;
+        margin-bottom: 5px;
+        margin-left: 50%;
+        }
+        button.remove {
+        margin-left: 5px;
+        }
+        label {
+        display: block;
+        width: 100%;
+        clear: both;
+        }
+        label > span {
+        max-width: 50%;
+        }
+        select + span:after, textarea + span:after, input:not([type='checkbox']):not([type='radio']) + span:after {
+        content: ':';
+        }
+        select + span:after, textarea[required] + span:after, input[required]:not([type='checkbox']):not([type='radio']) + span:after {
+        content: '*:';
+        }
+        input[required][type='checkbox'] + span:after {
+        content: '*';
+        }
+        input, select, textarea {
+        float: right;
+        width: 50%;
+        margin-bottom: 3px;
+        vertical-align: middle;
+        }
+        input:not([type='range']), textarea, select {
+        padding: 3px;
+        }
+        input[type='checkbox'], input[type='radio'] {
+        float: none;
+        width: auto;
+        margin-left: 50%;
+        }
+        input[type='range'] {
+        width: 40%;
+        }
+        output::before {
+        content: '(';
+        }
+        output {
+        width: 10%;
+        float: right;
+        text-align: center;
+        }
+        output:empty::after {
+        content: '...)';
+        }
+        output::after {
+        content: ')';
+        }
+        textarea {
+        resize: vertical;
+        }
+        input[type='text'],
+        input[type='number'],
+        input[type='date'],
+        input[type='time'],
+        input[type='datetime-local'],
+        input[type='month'],
+        input[type='url'],
+        textarea,
+        select {
+        border: 1px solid black;
+        border-radius: 5px;
+        }
+        input[type='text']:invalid,
+        input[type='number']:invalid,
+        input[type='date']:invalid,
+        input[type='time']:invalid,
+        input[type='datetime-local']:invalid,
+        input[type='month']:invalid,
+        input[type='url']:invalid,
+        textarea:invalid {
+        border: 1px solid #cc0000;
+        }
+        input[type='checkbox']:invalid + span {
+        color: #cc0000;
+        }
+        input[type='file']:invalid {
+        color: #cc0000;
+        }
+      </style>
+
+        <script type="text/javascript">
+
+        function download(text) {
+            var formData = new FormData();
+            formData.append("xml",text);
+            formData.append("fileName", "schema")
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/generatexml");
+
+           xhr.onload = function() {
+                if(xhr.status == 200) {
+                    document.open();
+                    document.write("Generate Metadata now");
+                    document.close();
+
+                } else {
+                    document.open();
+                    document.write("Error occurred");
+                    document.close();
+                }
+            }
+             xhr.send(formData);
+        }
+
+        /* POLYFILLS */
+
+        /* add .matches if not natively supported */
+        if (!Element.prototype.matches)
+        	Element.prototype.matches = Element.prototype.msMatchesSelector ||
+        								Element.prototype.webkitMatchesSelector;
+
+        /* add .closest if not natively supported */
+        if (!Element.prototype.closest)
+        	Element.prototype.closest = function(s) {
+        		var el = this;
+        		do {
+        			if (el.nodeType !== 1) return null;
+        			if (el.matches(s)) return el;
+        			el = el.parentElement || el.parentNode;
+        		} while (el !== null);
+        		return null;
+        	};
+
+        /* add .forEach if not natively supported */
+        if (!NodeList.prototype.forEach) {
+        	NodeList.prototype.forEach = function(callback){
+        		var i = 0;
+        		while (i != this.length) {
+        			callback.apply(this, [this[i], i, this]);
+        			i++;
+        		}
+        	};
+        }
+
+        /* VALUE SETTERS */
+
+        /* specifically set values on ranges */
+        document.querySelectorAll("[type='range']").forEach(function(o) {
+        	if (o.getAttribute("value")) {
+        		o.value = o.getAttribute("value").replace(/\D/g, "");
+        	} else if (o.getAttribute("min")) {
+        		o.value = o.getAttribute("min");
+        	} else if (o.getAttribute("max")) {
+        		o.value = o.getAttribute("max");
+        	} else {
+        		o.value = 0;
+        		o.onchange();
+        	}
+        });
+
+        /* specifically set values on datepickers */
+        document.querySelectorAll("[data-xsd2html2xml-primitive='xs:gday']").forEach(function(o) {
+        	if (o.getAttribute("value")) {
+        		o.value = o.getAttribute("value").replace(/-+0?/g, "");
+        	}
+        });
+        document.querySelectorAll("[data-xsd2html2xml-primitive='xs:gmonth']").forEach(function(o) {
+        	if (o.getAttribute("value")) {
+        		o.value = o.getAttribute("value").replace(/-+0?/g, "");
+        	}
+        });
+        document.querySelectorAll("[data-xsd2html2xml-primitive='xs:gmonthday']").forEach(function(o) {
+        	if (o.getAttribute("value")) {
+        		o.value = new Date().getFullYear().toString().concat(o.getAttribute("value").substring(1));
+        	}
+        });
+
+        /* EVENT HANDLERS */
+
+        var clickAddButton = function(button) {
+        	var newNode = button.previousElementSibling.cloneNode(true);
+
+        	newNode.removeAttribute("style");
+
+        	newNode.querySelectorAll("input, select, textarea").forEach(function(o) {
+        		if (o.closest("[style]") == null)
+        			o.removeAttribute("disabled");
+        	});
+
+        	button.parentNode.insertBefore(
+        		newNode, button.previousElementSibling
+        	);
+
+        	if ((button.parentNode.children.length - 2) == button.getAttribute("data-xsd2html2xml-max"))
+        		button.setAttribute("disabled", "disabled");
+        }
+
+        var clickRemoveButton = function(button) {
+        	if ((button.closest("section").children.length - 2) == button.closest("section").lastElementChild.getAttribute("data-xsd2html2xml-min"))
+        		button.closest("section").lastElementChild.click();
+
+        	if ((button.closest("section").children.length - 2) == button.closest("section").lastElementChild.getAttribute("data-xsd2html2xml-max"))
+        		button.closest("section").lastElementChild.removeAttribute("disabled");
+
+        	button.closest("section").removeChild(
+        		button.closest("fieldset, label")
+        	);
+        }
+
+        var clickRadioInput = function(input, name) {
+        	document.querySelectorAll("[name=".concat(name).concat("]")).forEach(function(o) {
+        		o.removeAttribute("checked");
+        		var section = o.parentElement.nextElementSibling;
+
+        		section.querySelectorAll("input, select, textarea").forEach(function(p) {
+        			if (input.parentElement.nextElementSibling.contains(p)) {
+        				if (p.closest("[data-xsd2html2xml-choice]") === section) {
+        					if (p.closest("*[style]") === null)
+        						p.removeAttribute("disabled");
+        					else
+        						p.setAttribute("disabled", "disabled");
+        				}
+        			} else
+        				p.setAttribute("disabled", "disabled");
+        		});
+        	});
+        	input.setAttribute("checked","checked");
+        }
+
+        var pickFile = function(input, file, type) {
+        	var resetFilePicker = function(input) {
+        		input.removeAttribute("value");
+        		input.removeAttribute("type");
+        		input.setAttribute("type", "file");
+        	}
+
+        	var fileReader = new FileReader();
+
+        	fileReader.onloadend = function() {
+        		if (fileReader.error) {
+        			alert(fileReader.error);
+        			resetFilePicker(input);
+        		} else {
+        			input.setAttribute("value",
+        				(type === "xs:base64binary")
+        				? fileReader.result.substring(fileReader.result.indexOf(",") + 1)
+        				//convert base64 to base16 (hexBinary)
+        				: atob(fileReader.result.substring(fileReader.result.indexOf(",") + 1))
+        			    	.split('')
+        			    	.map(function (aChar) {
+        			    		return ('0' + aChar.charCodeAt(0).toString(16)).slice(-2);
+        			    	})
+        					.join('')
+        					.toUpperCase()
+        			);
+        		};
+        	};
+
+        	if(file) {
+        		fileReader.readAsDataURL(file);
+        	} else {
+        		resetFilePicker(input);
+        	}
+
+        	if (input.getAttribute("data-xsd2html2xml-required")) input.setAttribute("required", "required");
+        }
+
+        /* XML GENERATORS */
+
+        var htmlToXML = function(root) {
+            var namespaces = [];
+            var prefixes = [];
+
+            document.querySelectorAll("[data-xsd2html2xml-namespace]:not([data-xsd2html2xml-namespace=''])").forEach(function(o) {
+            	if (namespaces.indexOf(
+            		o.getAttribute("data-xsd2html2xml-namespace")
+            	) == -1) {
+        	    	namespaces.push(
+        	    		o.getAttribute("data-xsd2html2xml-namespace")
+        	    	);
+
+        	    	prefixes.push(
+        	    		o.getAttribute("data-xsd2html2xml-name").substring(
+            				0, o.getAttribute("data-xsd2html2xml-name").indexOf(":")
+            			)
+            		);
+            	}
+            });
+
+            var namespaceString = "";
+
+            namespaces.forEach(function(o,i) {
+            	namespaceString = namespaceString.concat(
+            		"xmlns".concat(
+            			(prefixes[i] == "" ? "=" : ":".concat(prefixes[i].concat("=")))
+            		).concat(
+            			"\"".concat(namespaces[i]).concat("\" ")
+            		)
+            	)
+            });
+
+            return String.fromCharCode(60).concat("?xml version=\"1.0\"?").concat(String.fromCharCode(62)).concat(getXML(root, false, namespaceString.trim()));
+        };
+
+        var getXML = function(parent, attributesOnly, namespaceString) {
+            var xml = "";
+            var children = [].slice.call(parent.children);
+            children.forEach(function(o) {
+                if (!o.getAttribute("style")) {
+                    switch (o.getAttribute("data-xsd2html2xml-type")) {
+                        case "element":
+                            if (!attributesOnly) xml = xml.concat(String.fromCharCode(60)).concat(o.getAttribute("data-xsd2html2xml-name")).concat(getXML(o, true)).concat(String.fromCharCode(62)).concat(function() {
+                                if (o.nodeName.toLowerCase() === "label") {
+                                    return getContent(o);
+                                } else return getXML(o)
+                            }()).concat(String.fromCharCode(60)).concat("/").concat(o.getAttribute("data-xsd2html2xml-name")).concat(String.fromCharCode(62));
+                            break;
+                        case "attribute":
+                        	if (attributesOnly)
+        						if (getContent(o)
+        							|| (o.getElementsByTagName("input").length > 0
+        								? o.getElementsByTagName("input")[0].getAttribute("data-xsd2html2xml-primitive").toLowerCase() === "xs:boolean"
+        								: false
+        							))
+        							xml = xml.concat(" ").concat(o.getAttribute("data-xsd2html2xml-name")).concat("=\"").concat(getContent(o)).concat("\"");
+                            break;
+                        case "cdata":
+                            if (!attributesOnly) xml = xml.concat(getContent(o));
+                            break;
+                        default:
+                            if (!attributesOnly) {
+                            	if (!o.getAttribute("data-xsd2html2xml-choice"))
+                            		xml = xml.concat(getXML(o));
+
+                            	if (o.getAttribute("data-xsd2html2xml-choice"))
+                            		if (o.previousElementSibling.getElementsByTagName("input")[0].checked)
+                            			xml = xml.concat(getXML(o));
+                            }
+                            break;
+                    }
+                }
+            });
+
+            if (namespaceString) {
+            	xml = xml.substring(0, xml.indexOf(String.fromCharCode(62))).concat(" ").concat(namespaceString).concat(xml.substring(xml.indexOf(String.fromCharCode(62))));
+            }
+
+            return xml;
+        };
+
+        var getContent = function(node) {
+            if (node.getElementsByTagName("input").length != 0) {
+                switch (node.getElementsByTagName("input")[0].getAttribute("type").toLowerCase()) {
+                    case "checkbox":
+                        return node.getElementsByTagName("input")[0].checked;
+                    case "file":
+                    case "range":
+                    case "date":
+                    case "time":
+                    case "datetime-local":
+                    	return node.getElementsByTagName("input")[0].getAttribute("value");
+                    default:
+                    	switch (node.getElementsByTagName("input")[0].getAttribute("data-xsd2html2xml-primitive").toLowerCase()) {
+        		            case "xs:gday":
+        		            case "xs:gmonth":
+        		            case "xs:gmonthday":
+        		            case "xs:gyear":
+        		            case "xs:gyearmonth":
+        		            	return node.getElementsByTagName("input")[0].getAttribute("value");
+        		            default:
+        		            	return node.getElementsByTagName("input")[0].value;
+                    	}
+                }
+            } else if (node.getElementsByTagName("select").length != 0) {
+                return node.getElementsByTagName("select")[0].value;
+            } else if (node.getElementsByTagName("textarea").length != 0) {
+            	return node.getElementsByTagName("textarea")[0].value;
+            }
+        }
+
+        document.querySelectorAll("[data-xsd2html2xml-filled='true']").forEach(function(o) {
+        	if (o.closest("[data-xsd2html2xml-choice]"))
+        		o.closest("[data-xsd2html2xml-choice]").previousElementSibling.querySelector("input[type='radio']").click();
+        });
+      </script>
+    </form>
+</div>
+</body>
+</html>

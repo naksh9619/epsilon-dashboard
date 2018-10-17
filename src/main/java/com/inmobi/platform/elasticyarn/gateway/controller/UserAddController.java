@@ -1,9 +1,5 @@
 package com.inmobi.platform.elasticyarn.gateway.controller;
 
-
-
-import com.inmobi.platform.elasticyarn.gateway.entity.User;
-import com.inmobi.platform.elasticyarn.gateway.entity.UserRepository;
 import com.inmobi.platform.elasticyarn.gateway.service.FileStorageService;
 import com.inmobi.platform.elasticyarn.gateway.util.SystemCommandExecutor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +22,6 @@ public class UserAddController {
 
     @Autowired
     private FileStorageService fileStorageService;
-    @Autowired
-    private UserRepository userRepository;
 
 
     @PostMapping("/adduser")
@@ -38,7 +32,7 @@ public class UserAddController {
         String error ="";
         String fileName = fileStorageService.storeFile(key);
 
-        addUserToTheDataBase(user,group,fileName);
+//        addUserToTheDataBase(user,group,fileName);
 
         if (user.length()==0) {
             error = "Fields missing";
@@ -51,23 +45,23 @@ public class UserAddController {
         return "adduser";
     }
 
-    private void addUserToTheDataBase(String user, String group, String fileName) {
-
-        String key = "";
-
-        try {
-            key = new String(Files.readAllBytes(Paths.get("/dashboard/uploads/" + fileName)));
-        } catch (IOException e) {
-            log.error("Could not read key file");
-        }
-
-        User userToAdd = new User();
-        userToAdd.setUserName(user);
-        userToAdd.setUserGroup(group);
-        userToAdd.setSshKey(key);
-
-        userRepository.save(userToAdd);
-    }
+//    private void addUserToTheDataBase(String user, String group, String fileName) {
+//
+//        String key = "";
+//
+//        try {
+//            key = new String(Files.readAllBytes(Paths.get("/dashboard/uploads/" + fileName)));
+//        } catch (IOException e) {
+//            log.error("Could not read key file");
+//        }
+//
+//        User userToAdd = new User();
+//        userToAdd.setUserName(user);
+//        userToAdd.setUserGroup(group);
+//        userToAdd.setSshKey(key);
+//
+//        userRepository.save(userToAdd);
+//    }
 
     private String addUserAndKey(String user,String group,String filename) {
         List<String> commandUseradd = new ArrayList<>();

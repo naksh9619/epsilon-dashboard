@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().permitAll()
+        http.headers().disable().formLogin().permitAll()
                 .and()
                 .authorizeRequests()
                 .antMatchers("/babar").hasAnyRole("USER", "ADMIN")
