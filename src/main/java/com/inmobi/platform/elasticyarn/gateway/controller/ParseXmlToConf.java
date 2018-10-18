@@ -4,6 +4,8 @@ import static com.inmobi.platform.elasticyarn.gateway.util.WriteXmlStringToFile.
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +15,10 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import com.inmobi.platform.elasticyarn.gateway.util.SystemCommandExecutor;
 
+import com.microsoft.azure.storage.CloudStorageAccount;
+import com.microsoft.azure.storage.OperationContext;
+import com.microsoft.azure.storage.StorageException;
+import com.microsoft.azure.storage.blob.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,11 +29,45 @@ import org.xml.sax.SAXException;
 
 import lombok.extern.slf4j.Slf4j;
 
+
 @Slf4j
 @Controller
 public class ParseXmlToConf {
+
+  private static String pipelineName;
+
+
+  public static void uploadToBlob(String fileName) {
+    String storageConnectionString =
+        "DefaultEndpointsProtocol=https;" +
+            "AccountName=dataartifacts;" +
+            "AccountKey=x2W4iTS0CYkFPuoz/x1eWBrI3siSeNU3WP9pfv4Mm9m/q30aqfk9pH4i198iWDqfLKHc0ODoLILwYSu4CdoxMg==";
+    try {
+      CloudStorageAccount storageAccount = CloudStorageAccount.parse(storageConnectionString);
+      CloudBlobClient blobClient = storageAccount.createCloudBlobClient();
+      //change needs to be done here for changing location of files inside blob
+      CloudBlobContainer container = blobClient.getContainerReference("ml-resources");
+      container.createIfNotExists(BlobContainerPublicAccessType.CONTAINER, new BlobRequestOptions(), new OperationContext());
+
+      CloudBlockBlob blob = container.getBlockBlobReference(pipelineName + "/" + fileName + ".xml");
+      String currentDir = System.getProperty("user.dir");
+      blob.uploadFromFile(currentDir + "/" + fileName + ".xml");
+    } catch(StorageException | URISyntaxException | IOException | InvalidKeyException e) {
+      System.out.println("error is: " + e.getMessage());
+    }
+
+  }
+
+  @PostMapping("/generatexml")
+  public void generateXml(@RequestParam(name="xml", required=true) String xmlStr, @RequestParam("fileName") String fileName, HttpServletResponse response) {
+    System.out.println("xml is:" + xmlStr);
+    convertXmlStringToFile(xmlStr, fileName);
+    uploadToBlob(fileName);
+    response.setStatus(200);
+  }
+
   @PostMapping("/generateconf")
-  public static void generate(@RequestParam(name="xml", required=true) String xmlStr, @RequestParam("fileName") String fileName, HttpServletResponse response) {
+  public static void generateConf(@RequestParam(name="xml", required=true) String xmlStr, @RequestParam("fileName") String fileName, HttpServletResponse response) {
 
     convertXmlStringToFile(xmlStr, fileName);
     parseXml(xmlStr, fileName);
@@ -42,7 +82,7 @@ public class ParseXmlToConf {
       String currentDir = System.getProperty("user.dir");
       Document config = dBuilder.parse(new File(currentDir + "/" + fileName + ".xml"));
       config.getDocumentElement().normalize();
-      String pipeLineName = config.getElementsByTagName("pipeline.name").item(0).getFirstChild().getNodeValue();
+      pipelineName = config.getElementsByTagName("pipeline.name").item(0).getFirstChild().getNodeValue();
       String startDate = config.getElementsByTagName("start").item(0).getFirstChild().getNodeValue();
       String endDate = config.getElementsByTagName("end").item(0).getFirstChild().getNodeValue();
       String queueName = config.getElementsByTagName("queue").item(0).getFirstChild().getNodeValue();
@@ -50,7 +90,7 @@ public class ParseXmlToConf {
       String codec = config.getElementsByTagName("compressionCodec").item(0).getFirstChild().getNodeValue();
       String falconClusterName = config.getElementsByTagName("falcon-cluster").item(0).getFirstChild().getNodeValue();
 
-      builder.append("pipeline.name: \"").append(pipeLineName).append("\"\n");
+      builder.append("pipeline.name: \"").append(pipelineName).append("\"\n");
       builder.append("xml {\n");
       builder.append("schema.path: \"").append("/ml-resources/schema.xml\"\n");
       builder.append("metadata.path: \"").append("/ml-resources/metadata.xml\"\n");
@@ -88,7 +128,7 @@ public class ParseXmlToConf {
 
       String confString = builder.toString();
       writeToFile(confString);
-      String error = triggerJob(pipeLineName);
+      String error = triggerJob(pipelineName);
     } catch (ParserConfigurationException | IOException | SAXException e) {
       log.warn("{} Exception occurred while parsing xml to conf", e.getMessage());
     }

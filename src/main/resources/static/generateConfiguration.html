@@ -299,13 +299,15 @@
       </style>
     <script type="text/javascript">
         function download(text) {
+            var confHTML = window.parent.document.getElementById("confIframe").contentWindow.document.documentElement.innerHTML;
+            generateConf(text, confHTML)
             var schemaHTML=window.parent.document.getElementById("schemaIframe").contentWindow.document.getElementById('schemaForm')
             var metadataHTML=window.parent.document.getElementById("metadataIframe").contentWindow.document.getElementById('metadataForm')
             var trainingHTML=window.parent.document.getElementById("trainingIframe").contentWindow.document.getElementById('trainingForm')
             generateXML(htmlToXML(schemaHTML), "schema")
             generateXML(htmlToXML(metadataHTML), "metadata")
             generateXML(htmlToXML(trainingHTML), "training")
-            generateConf(text)
+            alert('Job has been submitted successfully')
         }
 
         function generateXML(text, fileName) {
@@ -316,7 +318,7 @@
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/generatexml");
 
-           xhr.onload = function() {
+           /*xhr.onload = function() {
                 if(xhr.status == 200) {
                     document.open();
                     document.close();
@@ -325,12 +327,12 @@
                     document.write("Error occurred");
                     document.close();
                 }
-            }
+            }*/
              xhr.send(formData);
         }
 
 
-        function generateConf(text) {
+        function generateConf(text, confHTML) {
             var formData = new FormData();
             formData.append("xml",text);
             formData.append("fileName", "pipeline")
@@ -338,18 +340,14 @@
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/generateconf");
 
-           xhr.onload = function() {
+           /*xhr.onload = function() {
                 if(xhr.status == 200) {
-                    document.open();
-                    document.write("Job Submitted");
-                    document.close();
-
+                    alert('Job has been submitted successfully')
+                    document.innerHTML = confHTML;
                 } else {
-                    document.open();
-                    document.write("Error occurred");
-                    document.close();
+                    alert('Error while submitting the job. Please try later');
                 }
-            }
+            }*/
              xhr.send(formData);
         }
 
