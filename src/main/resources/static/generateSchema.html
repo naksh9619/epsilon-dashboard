@@ -4,7 +4,7 @@
 </head>
 <body>
 <div style="padding:15px">
-    <form action="javascript:void(0);" onsubmit="download(htmlToXML(this));">
+    <form id="schemaForm" action="javascript:void(0);" onsubmit="download(htmlToXML(this));">
         <section>
             <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="schemas">
                 <legend>schemas</legend>
@@ -157,7 +157,7 @@
                 </section>
             </fieldset>
         </section>
-        <input type="submit" value="Generate Schema File">
+        <input type="submit" value="Download Schema">
         <style type="text/css">
         body {
         font-family: Calibri, Arial, sans-serif;
@@ -274,26 +274,15 @@
         <script type="text/javascript">
 
         function download(text) {
-            var formData = new FormData();
-            formData.append("xml",text);
-            formData.append("fileName", "schema")
+            var element = document.createElement("a");
+            element.style.display = "none";
 
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/generatexml");
+            element.setAttribute("href", "data:application/xml;charset=utf-8," + encodeURIComponent(text));
+            element.setAttribute("download", "schema.xml");
 
-           xhr.onload = function() {
-                if(xhr.status == 200) {
-                    document.open();
-                    document.write("Generate Metadata now");
-                    document.close();
-
-                } else {
-                    document.open();
-                    document.write("Error occurred");
-                    document.close();
-                }
-            }
-             xhr.send(formData);
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
         }
 
         /* POLYFILLS */

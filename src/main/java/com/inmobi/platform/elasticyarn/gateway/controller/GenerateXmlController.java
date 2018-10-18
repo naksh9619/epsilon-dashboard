@@ -23,7 +23,7 @@ public class GenerateXmlController {
 
   @PostMapping("/generatexml")
   public void generate(@RequestParam(name="xml", required=true) String xmlStr, @RequestParam("fileName") String fileName, HttpServletResponse response) {
-
+    System.out.println("xml is:" + xmlStr);
     convertXmlStringToFile(xmlStr, fileName);
     uploadToBlob(fileName);
     response.setStatus(200);
@@ -37,11 +37,13 @@ public class GenerateXmlController {
     try {
       CloudStorageAccount storageAccount = CloudStorageAccount.parse(storageConnectionString);
       CloudBlobClient blobClient = storageAccount.createCloudBlobClient();
+      //change needs to be done here for changing location of files inside blob
       CloudBlobContainer container = blobClient.getContainerReference("ml-resources");
       container.createIfNotExists(BlobContainerPublicAccessType.CONTAINER, new BlobRequestOptions(), new OperationContext());
 
-      CloudBlockBlob blob = container.getBlockBlobReference(fileName + ".xml");
-      blob.uploadFromFile("/Users/naksh.arora/Work/epsilon-dashboard/target/" + fileName + ".xml");
+      CloudBlockBlob blob = container.getBlockBlobReference("pipelineName/" + fileName + ".xml");
+      String currentDir = System.getProperty("user.dir");
+      blob.uploadFromFile(currentDir + "/" + fileName + ".xml");
     } catch(StorageException | URISyntaxException | IOException | InvalidKeyException e) {
       System.out.println("error is: " + e.getMessage());
     }

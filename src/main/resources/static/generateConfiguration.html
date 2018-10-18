@@ -184,7 +184,7 @@
             </section>
         </fieldset>
     </section>
-    <input type="submit" value="Generate Configuration File">
+    <input type="submit" value="Submit Job">
     <style type="text/css">
         body {
         font-family: Calibri, Arial, sans-serif;
@@ -299,7 +299,39 @@
       </style>
     <script type="text/javascript">
         function download(text) {
-        	var formData = new FormData();
+            var schemaHTML=window.parent.document.getElementById("schemaIframe").contentWindow.document.getElementById('schemaForm')
+            var metadataHTML=window.parent.document.getElementById("metadataIframe").contentWindow.document.getElementById('metadataForm')
+            var trainingHTML=window.parent.document.getElementById("trainingIframe").contentWindow.document.getElementById('trainingForm')
+            generateXML(htmlToXML(schemaHTML), "schema")
+            generateXML(htmlToXML(metadataHTML), "metadata")
+            generateXML(htmlToXML(trainingHTML), "training")
+            generateConf(text)
+        }
+
+        function generateXML(text, fileName) {
+            var formData = new FormData();
+            formData.append("xml",text);
+            formData.append("fileName", fileName)
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/generatexml");
+
+           xhr.onload = function() {
+                if(xhr.status == 200) {
+                    document.open();
+                    document.close();
+                } else {
+                    document.open();
+                    document.write("Error occurred");
+                    document.close();
+                }
+            }
+             xhr.send(formData);
+        }
+
+
+        function generateConf(text) {
+            var formData = new FormData();
             formData.append("xml",text);
             formData.append("fileName", "pipeline")
 

@@ -3,7 +3,7 @@
     <title> Generate MetaData File</title>
 </head>
 <body>
-<form action="javascript:void(0);" onsubmit="download(htmlToXML(this));
+<form id="metadataForm" action="javascript:void(0);" onsubmit="download(htmlToXML(this));
       ">
     <section>
         <fieldset data-xsd2html2xml-type="element" data-xsd2html2xml-name="metadata">
@@ -279,7 +279,7 @@
             </section>
         </fieldset>
     </section>
-    <input type="submit" value="Generate MetaData File">
+    <input type="submit" value="Download MetaData">
     <style type="text/css">
         body {
         font-family: Calibri, Arial, sans-serif;
@@ -394,26 +394,16 @@
       </style>
     <script type="text/javascript">
         function download(text) {
-        	var formData = new FormData();
-            formData.append("xml",text);
-            formData.append("fileName", "metadata")
+        	var element = document.createElement("a");
+            element.style.display = "none";
 
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/generatexml");
+            element.setAttribute("href", "data:application/xml;charset=utf-8," + encodeURIComponent(text));
+            element.setAttribute("download", "metadata.xml");
 
-           xhr.onload = function() {
-                if(xhr.status == 200) {
-                    document.open();
-                    document.write("Generate Training now");
-                    document.close();
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
 
-                } else {
-                    document.open();
-                    document.write("Error occurred");
-                    document.close();
-                }
-            }
-            xhr.send(formData);
         }
 
         /* POLYFILLS */
