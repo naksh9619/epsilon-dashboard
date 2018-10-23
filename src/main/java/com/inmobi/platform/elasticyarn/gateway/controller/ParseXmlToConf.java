@@ -40,16 +40,16 @@ public class ParseXmlToConf {
   public static void uploadToBlob(String fileName) {
     String storageConnectionString =
         "DefaultEndpointsProtocol=https;" +
-            "AccountName=dataartifacts;" +
-            "AccountKey=x2W4iTS0CYkFPuoz/x1eWBrI3siSeNU3WP9pfv4Mm9m/q30aqfk9pH4i198iWDqfLKHc0ODoLILwYSu4CdoxMg==";
+            "AccountName=merlinmlstorage;" +
+            "AccountKey=BoPKLJlJUNAZe5seRCj1hkr8DAqNyO647BHEBuDbeiYPRDxDwTr7l5xIdntR9j8zRygIpD+NEqd64w39RkhF7w==";
     try {
       CloudStorageAccount storageAccount = CloudStorageAccount.parse(storageConnectionString);
       CloudBlobClient blobClient = storageAccount.createCloudBlobClient();
       //change needs to be done here for changing location of files inside blob
-      CloudBlobContainer container = blobClient.getContainerReference("ml-resources");
+      CloudBlobContainer container = blobClient.getContainerReference("batchstore");
       container.createIfNotExists(BlobContainerPublicAccessType.CONTAINER, new BlobRequestOptions(), new OperationContext());
 
-      CloudBlockBlob blob = container.getBlockBlobReference(pipelineName + "/" + fileName + ".xml");
+      CloudBlockBlob blob = container.getBlockBlobReference("ml-resources/" + pipelineName + "/" + fileName + ".xml");
       String currentDir = System.getProperty("user.dir");
       blob.uploadFromFile(currentDir + "/" + fileName + ".xml");
     } catch(StorageException | URISyntaxException | IOException | InvalidKeyException e) {
@@ -60,7 +60,18 @@ public class ParseXmlToConf {
 
   @PostMapping("/generatexml")
   public void generateXml(@RequestParam(name="xml", required=true) String xmlStr, @RequestParam("fileName") String fileName, HttpServletResponse response) {
+
     System.out.println("xml is:" + xmlStr);
+    String replaceSchemaStr = "<schemas xmlns=\"uri:merlin:schema:0.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"uri:merlin:schema:0.1\">";
+    String replaceMetaDataStr = "<metadata xmlns=\"uri:merlin:schema:0.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"uri:merlin:schema:0.1\">";
+    String replaceTrainingStr = "<training xmlns=\"uri:merlin:schema:0.1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"uri:merlin:schema:0.1 schema-0.1.xsd\">";
+    if (fileName.equals("schema")) {
+      xmlStr = xmlStr.replace("<schemas>", replaceSchemaStr);
+    } else if (fileName.equals("metadata")) {
+      xmlStr = xmlStr.replace("<metadata>", replaceMetaDataStr);
+    } else {
+      xmlStr = xmlStr.replace("<training>", replaceTrainingStr);
+    }
     convertXmlStringToFile(xmlStr, fileName);
     uploadToBlob(fileName);
     response.setStatus(200);
@@ -70,11 +81,11 @@ public class ParseXmlToConf {
   public static void generateConf(@RequestParam(name="xml", required=true) String xmlStr, @RequestParam("fileName") String fileName, HttpServletResponse response) {
 
     convertXmlStringToFile(xmlStr, fileName);
-    parseXml(xmlStr, fileName);
+    parseXml(fileName);
     response.setStatus(200);
   }
 
-  private static void parseXml(String xmlStr, String fileName) {
+  private static void parseXml(String fileName) {
     try {
       StringBuilder builder = new StringBuilder();
       DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -87,14 +98,17 @@ public class ParseXmlToConf {
       String endDate = config.getElementsByTagName("end").item(0).getFirstChild().getNodeValue();
       String queueName = config.getElementsByTagName("queue").item(0).getFirstChild().getNodeValue();
       String formatName = config.getElementsByTagName("format").item(0).getFirstChild().getNodeValue();
+      String trainingOnly = config.getElementsByTagName("trainingOnly").item(0).getFirstChild().getNodeValue();
       String codec = config.getElementsByTagName("compressionCodec").item(0).getFirstChild().getNodeValue();
       String falconClusterName = config.getElementsByTagName("falcon-cluster").item(0).getFirstChild().getNodeValue();
 
       builder.append("pipeline.name: \"").append(pipelineName).append("\"\n");
       builder.append("xml {\n");
-      builder.append("schema.path: \"").append("/ml-resources/schema.xml\"\n");
-      builder.append("metadata.path: \"").append("/ml-resources/metadata.xml\"\n");
-      builder.append("training.path: \"").append("/ml-resources/training.xml\"\n\n");
+      builder.append("schema.path: \"").append("/ml-resources/").append(pipelineName).append("/schema.xml\"\n");
+      builder.append("metadata.path: \"").append("/ml-resources/").append(pipelineName).append("/metadata.xml\"\n");
+      builder.append("training.path: \"").append("/ml-resources/").append(pipelineName).append("/training.xml\"\n");
+      builder.append("}\n");
+      builder.append("trainingOnly: ").append(trainingOnly).append("\n");
       builder.append("start: \"").append(startDate).append("\"\n");
       builder.append("end: \"").append(endDate).append("\"\n");
       builder.append("queue: \"").append(queueName).append("\"\n");
@@ -122,8 +136,8 @@ public class ParseXmlToConf {
 
       builder.append("target {").append("\n");
       builder.append("clusters-ext {\n").append("clusters: [").append(falconClusterName).append("]\n").append("}\n");
-      addDataset(config, "target-datasets", builder, "datasets");
-      addDataset(config, "target-training-datasets", builder, "training-datasets");
+      addDatasetTarget(config, "target-datasets", builder, "datasets");
+      addDatasetTarget(config, "target-training-datasets", builder, "training-datasets");
       builder.append("}\n");
 
       String confString = builder.toString();
@@ -142,13 +156,39 @@ public class ParseXmlToConf {
     }
     for (int i = 0 ; i < nodeList.getLength() ; i++) {
       Node node = nodeList.item(i);
-      String name = node.getFirstChild().getAttributes().getNamedItem("name").getNodeValue();
-      String from = node.getFirstChild().getAttributes().getNamedItem("from").getNodeValue();
-      String to = node.getFirstChild().getAttributes().getNamedItem("to").getNodeValue();
-      String frequency = node.getFirstChild().getFirstChild().getFirstChild().getNodeValue();
-      builder.append(datasetName).append(": ${").append(frequency).append("} {\n");
+      String name = node.getFirstChild().getNextSibling().getAttributes().getNamedItem("name").getNodeValue();
+      String from = node.getFirstChild().getNextSibling().getAttributes().getNamedItem("from").getNodeValue();
+      String to = node.getFirstChild().getNextSibling().getAttributes().getNamedItem("to").getNodeValue();
+      String frequency = node.getFirstChild().getNextSibling().getFirstChild().getNextSibling().getFirstChild().getNodeValue();
+      builder.append(name).append(": ${").append(frequency).append("} {\n");
       builder.append("from: \"").append(from).append("\"\n");
       builder.append("to: \"").append(to).append("\"\n");
+      builder.append("}\n");
+    }
+    if (nodeList.getLength() > 0) {
+      builder.append(" }").append("\n");
+    }
+  }
+
+  private static void addDatasetTarget(Document config, String datasetName, StringBuilder builder, String tag) {
+    NodeList nodeList = config.getElementsByTagName(datasetName);
+
+    if (nodeList.getLength() > 0) {
+      builder.append(tag).append(" {\n");
+    }
+    for (int i = 0 ; i < nodeList.getLength() ; i++) {
+      Node node = nodeList.item(i);
+      String name = node.getFirstChild().getNextSibling().getAttributes().getNamedItem("name").getNodeValue();
+      String cluster = node.getFirstChild().getNextSibling().getAttributes().getNamedItem("cluster").getNodeValue();
+      String datasetNameSuffix = node.getFirstChild().getNextSibling().getAttributes().getNamedItem("dataset-name.suffix").getNodeValue();
+      String pathPrefix = nodeList.item(0).getFirstChild().getNextSibling().getAttributes().getNamedItem("path.prefix").getNodeValue();
+      String frequency = node.getFirstChild().getNextSibling().getFirstChild().getNextSibling().getFirstChild().getNodeValue();
+      builder.append(name).append(": {\n");
+      builder.append("create: ${").append(frequency).append("} {\n");
+      builder.append("clusters: [").append(cluster).append("]\n");
+      builder.append("path.prefix: \"").append(pathPrefix).append("\"\n");
+      builder.append("dataset-name.suffix: \"").append(datasetNameSuffix).append("\"\n");
+      builder.append("}\n");
       builder.append("}\n");
     }
     if (nodeList.getLength() > 0) {
@@ -173,7 +213,7 @@ public class ParseXmlToConf {
     commandToExecute.add("falcon");
     commandToExecute.add("extension");
     commandToExecute.add("-extensionName");
-    commandToExecute.add("merlin-summarization");
+    commandToExecute.add("merlin");
     commandToExecute.add("-submitAndSchedule");
     commandToExecute.add("-jobName");
     commandToExecute.add(pipeline);
