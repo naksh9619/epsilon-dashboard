@@ -187,6 +187,7 @@ public class ParseXmlToConf {
       builder.append("create: ${").append(frequency).append("} {\n");
       builder.append("clusters: [").append(cluster).append("]\n");
       builder.append("path.prefix: \"").append(pathPrefix).append("\"\n");
+      builder.append("falcon-name.suffix = \"-").append(pipelineName).append("\"\n");
       builder.append("dataset-name.suffix: \"").append(datasetNameSuffix).append("\"\n");
       builder.append("}\n");
       builder.append("}\n");
